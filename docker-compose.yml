@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  app:
+    build: ./
+    restart: always
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3000:5000
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: test_task_db
+    ports:
+      - 8822:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
